@@ -46,15 +46,15 @@ class Block {
 
         const difference = timestamp - originalBlock.timestamp;
 
+        if (difficulty < 1) {
+            return 1;
+        }
+
         if (difference > MINE_RATE) {
             return difficulty - 1;
         }
 
-        if (difference < MINE_RATE) {
-            return difficulty + 1;
-        }
-
-        return difficulty;
+        return difficulty + 1;
     }
 }
 
