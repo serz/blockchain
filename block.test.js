@@ -6,13 +6,25 @@ describe('Block', () => {
     const timestamp = 'date';
     const lastHash = 'l-hash';
     const hash = 'hash';
+    const nonce = 1;
+    const difficulty = 1;
     const data = ['blockchain', 'date'];
-    const block = new Block({timestamp, hash, lastHash, data});
+
+    const block = new Block({
+        timestamp,
+        hash,
+        lastHash,
+        nonce,
+        difficulty,
+        data,
+    });
 
     it('has a timestamp, hash, last hash, data props', () => {
         expect(block.timestamp).toEqual(timestamp);
         expect(block.lastHash).toEqual(lastHash);
         expect(block.hash).toEqual(hash);
+        expect(block.nonce).toEqual(nonce);
+        expect(block.difficulty).toEqual(difficulty);
         expect(block.data).toEqual(data);
     });
 
@@ -51,7 +63,17 @@ describe('Block', () => {
 
         it('sets a SHA-256 `hash` based on input', () => {
             expect(minedBlock.hash)
-                .toEqual(cryptoHash(minedBlock.timestamp, lastBlock.hash, data));
+                .toEqual(cryptoHash(
+                    minedBlock.timestamp,
+                    lastBlock.hash,
+                    minedBlock.nonce,
+                    minedBlock.difficulty,
+                    data
+                ));
+        });
+
+        it('sets a `hash` that meets the difficulty criteria', () => {
+            expect(minedBlock.hash.substring(0, minedBlock.difficulty)).toEqual('0'.repeat(minedBlock.difficulty));
         });
     });
 });
