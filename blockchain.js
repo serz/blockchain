@@ -13,6 +13,8 @@ class Blockchain {
         });
 
         this.chain.push(newBlock);
+
+        return newBlock;
     }
 
     static isValidChain(chain) {
@@ -22,14 +24,19 @@ class Blockchain {
 
         for (let i=1; i<chain.length; i++) {
             const {timestamp, lastHash, hash, nonce, difficulty, data} = chain[i];
-            const actualLastHash = chain[i-1].hash;
+            const prevBlock = chain[i-1];
 
-            if (lastHash !== actualLastHash) {
-                return false;
-            }
+            const prevBlockHash = prevBlock.hash;
+            const prevBlockDifficulty = prevBlock.difficulty;
+
+            const isLastHashValid = (lastHash === prevBlockHash);
 
             const validatedHash = cryptoHash(timestamp, lastHash, nonce, difficulty, data);
-            if (hash !== validatedHash) {
+            const isNewHashValid = (hash === validatedHash);
+
+            const isDifficultyValid = Math.abs(prevBlockDifficulty - difficulty) <= 1;
+
+            if (!isLastHashValid || !isNewHashValid || !isDifficultyValid) {
                 return false;
             }
         }
