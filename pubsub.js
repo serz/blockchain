@@ -5,11 +5,13 @@ const CHANNELS = {
 };
 
 class PubSub {
-    constructor() {
+    constructor({blockchain}) {
+        this.blockchain = blockchain;
+
         this.publisher = redis.createClient();
         this.subscriber = redis.createClient();
 
-        this.subscriber.subscribe(CHANNELS.CHAIN);
+        this.subscribeToChannels();
 
         this.subscriber.on(
             'message',
@@ -18,6 +20,31 @@ class PubSub {
     }
 
     handleMessage(channel, message) {
-        // implement message handling
+        console.log('message received');
+
+        const parsedMessage = JSON.parse(message);
+
+        if (channel === CHANNELS.CHAIN) {
+            this.blockchain.replaceChain(parsedMessage);
+        }
+    }
+
+    subscribeToChannels() {
+        Object.values(CHANNELS).forEach(channel => {
+            this.subscriber.subscribe(channel);
+        });
+    }
+
+    publish({channel, message}) {
+        this.publisher.publish(channel, message);
+    }
+
+    broadcastChain() {
+        this.publish({
+            channel: CHANNELS.CHAIN,
+            message: JSON.stringify(this.blockchain.chain),
+        });
     }
 }
+
+module.exports = PubSub;
