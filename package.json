@@ -1,7 +1,7 @@
 {
   "name": "blockchain",
   "version": "1.0.0",
-  "description": "",
+  "description": "simple blockchain implementation",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,15 +9,16 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sergei Kalinistov",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "hex-to-binary": "^1.0.1",
-    "jest": "^23.6.0"
+    "jest": "^25.3.0",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^2.0.2"
   }
 }
