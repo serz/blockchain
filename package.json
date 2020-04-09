@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js"
   },
   "keywords": [],
   "author": "Sergei Kalinistov",
@@ -16,9 +17,11 @@
     "express": "^4.16.3",
     "hex-to-binary": "^1.0.1",
     "jest": "^25.3.0",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "request": "^2.88.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "nodemon": "^2.0.2"
   }
 }
