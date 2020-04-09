@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const Blockchain = require('./blockchain');
-const PubSub = require('./pubsub');
+const Blockchain = require('./app/blockchain/chain');
+const PubSub = require('./app/pubsub');
 
 const app = express();
 const blockchain = new Blockchain();
@@ -47,5 +47,7 @@ if (process.env.GENERATE_PEER_PORT === 'true') {
 
 app.listen(PORT, () => {
     console.log(`Listening at port ${PORT}`);
-    syncChains();
+    if (PORT !== 3000) {
+        syncChains();
+    }
 });

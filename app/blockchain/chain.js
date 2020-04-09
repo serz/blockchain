@@ -1,7 +1,7 @@
 const Block = require('./block');
-const cryptoHash = require('./crypto-hash');
+const cryptoHash = require('../utils/crypto-hash');
 
-class Blockchain {
+class Chain {
     constructor() {
         this.chain = [Block.genesis()];
     }
@@ -50,14 +50,14 @@ class Blockchain {
             return;
         }
 
-        if (!Blockchain.isValidChain(chain)) {
+        if (!Chain.isValidChain(chain)) {
             console.error('The incoming chain must be valid');
             return;
         }
 
-        console.log('replacing chain with: ', chain);
+        console.log('replacing chain');
         this.chain = chain;
     }
 }
 
-module.exports = Blockchain;
+module.exports = Chain;

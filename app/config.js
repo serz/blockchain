@@ -1,5 +1,5 @@
 const MINE_RATE = 1000;
-const INITIAL_DIFFICULTY = 3;
+const INITIAL_DIFFICULTY = 2;
 
 const GENESIS_DATA = {
     timestamp: 1586163056,
@@ -10,7 +10,10 @@ const GENESIS_DATA = {
     nonce: 0,
 };
 
+const STARTING_BALANCE = 1000;
+
 module.exports = {
     GENESIS_DATA,
-    MINE_RATE
+    MINE_RATE,
+    STARTING_BALANCE,
 };
